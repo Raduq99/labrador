@@ -2,7 +2,6 @@
 #include "types.hpp"
 #include "projection.hpp"
 
-#define FUNC_COUNT 3 // [128/log(q)]
 
 template <size_t count>
 std::array<coeff_vector<count>, FUNC_COUNT> generate_challenges()
@@ -32,4 +31,11 @@ bool check_b0(std::array<Rq, FUNC_COUNT> b_second,
     std::array<coeff_vector<FL>, FUNC_COUNT> psi,
     std::array<coeff_vector<256>, FUNC_COUNT> omega,
     coeff_vector<PROJ_SIZE> p
+);
+
+ std::array<poly_vector<N>, R> compute_phi_aggregated(
+    poly_vector<FK> alpha,
+    poly_vector<FUNC_COUNT> beta,
+    std::array<std::array<poly_vector<N>, FK>, R> phi,
+    std::array<std::array<poly_vector<N>, FUNC_COUNT>, R> phi_second
 );

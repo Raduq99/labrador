@@ -100,3 +100,26 @@ bool check_b0(std::array<Rq, FUNC_COUNT> b_second,
     }
     return true;
 }
+
+ std::array<poly_vector<N>, R> compute_phi_aggregated(
+    poly_vector<FK> alpha,
+    poly_vector<FUNC_COUNT> beta,
+    std::array<std::array<poly_vector<N>, FK>, R> phi,
+    std::array<std::array<poly_vector<N>, FUNC_COUNT>, R> phi_second
+)
+{
+    std::array<poly_vector<N>, R> phi_aggregated;
+    for(size_t i = 0; i < R; i++)
+    {
+        poly_vector<N> phi_i = phi_aggregated[i];
+        for(size_t k = 0; k < FK; k++)
+        {
+            phi_i = phi_i + alpha[k] * phi[i][k];
+        }
+        for(size_t k = 0; k < FUNC_COUNT; k++)
+        {
+            phi_i = phi_i + beta[k] * phi_second[i][k];
+        }
+    }
+    return phi_aggregated;
+}

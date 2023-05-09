@@ -2,9 +2,6 @@
 #include "types.hpp"
 #include "decompose.hpp"
 
-template <size_t size>
-poly_vector<T2> construct_g(poly_vector<size> si, poly_vector<size> sj)
-{
-    Rq p = inner_product(si, sj);
-    return decompose(p);
-}
+poly_vector<T2> construct_g(poly_vector<N> s_i, poly_vector<N> s_j);
+
+poly_vector<T1> construct_h(poly_vector<N> s_i, poly_vector<N> s_j, poly_vector<N> phi_i, poly_vector<N> phi_j);

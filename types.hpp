@@ -2,20 +2,21 @@
 #include "nfl.hpp"
 
 #define INT_TYPE uint32_t
-#define DEGREE 4
+#define DEGREE 64
 #define COEFF_BITS 30
 #define N 2
 #define R 1 // number of witnesses s_i
 #define K 2
 #define K1 3
 #define K2 3
-#define T1 2
+#define T1 3
 #define T2 2
 #define B1 33000
 #define B2 33000
 #define PROJ_SIZE 256 // 3
-#define FK 3 // K - number of function f 
+#define FK 4 // K - number of function f 
 #define FL 3 // L - number of function f'
+#define FUNC_COUNT 3 // [128/log(q)]
 
 using Rq = nfl::poly_from_modulus<INT_TYPE, DEGREE, COEFF_BITS>;
 const INT_TYPE MODULUS = Rq::get_modulus(0); // 1073479681
@@ -75,6 +76,17 @@ poly_vector<size> operator*(const INT_TYPE &c, const poly_vector<size> &v)
     for (size_t i = 0; i < size; i++)
     {
         res[i] = c * v[i];
+    }
+    return res;
+}
+
+template <size_t size>
+poly_vector<size> operator*(const Rq &f, const poly_vector<size> &v)
+{
+    poly_vector<size> res;
+    for (size_t i = 0; i < size; i++)
+    {
+        res[i] = f * v[i];
     }
     return res;
 }
